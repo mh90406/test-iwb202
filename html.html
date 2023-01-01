@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css.css">
+    <title>إضافة طالب</title>
+    <meta charset="utf-8" />
+
+    <script type="text/javascript">
+
+
+        /********************* Captcha *********************************/
+        function Captcha() {
+            var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+            var i;
+            for (i = 0; i < 6; i++) {
+                var a = alpha[Math.floor(Math.random() * alpha.length)];
+                var b = alpha[Math.floor(Math.random() * alpha.length)];
+                var c = alpha[Math.floor(Math.random() * alpha.length)];
+                var d = alpha[Math.floor(Math.random() * alpha.length)];
+                var e = alpha[Math.floor(Math.random() * alpha.length)];
+                var f = alpha[Math.floor(Math.random() * alpha.length)];
+                var g = alpha[Math.floor(Math.random() * alpha.length)];
+            }
+            var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' ' + f + ' ' + g;
+            document.getElementById("mainCaptcha").value = code
+        }
+        function ValidCaptcha() {
+            var string1 = removeSpaces(document.getElementById('mainCaptcha').value);
+            var string2 = removeSpaces(document.getElementById('txtInput').value);
+            if (string1 == string2) {
+                return true;
+               
+            }
+            else {
+                return false;
+                 
+            }
+        }
+        function removeSpaces(string) {
+            return string.split(' ').join('');
+        }
+
+        /*********************End Captcha *********************************/
+    </script>
+
+
+
+
+</head>
+<body>
+    <form method="post"onsubmit="return checkform(this); ">
+
+        <h1>إضافة طالب</h1><br>
+        <div class="c1" align="right">
+
+        <input type="text" id="user" name=" user " size="20" required placeholder="Aziz_21286" pattern="{A-Za-Z}+{_}+{0-9}" />
+        <label for="user"> : اسم المستخدم</label>
+        <br> <br>
+
+        
+        <input type="text" id="student" name="اسم الطالب" size="20" required placeholder="مثال عزيز اليونس" />
+         
+        &nbsp;&nbsp;
+         <label for="student"> : اسم الطالب</label>
+        <br> <br>
+        <input type="date" id="date" name="تاريخ الولادة" size="20" required min="1950-12-31" max="2022-12-31" value="1999-12-31" />
+        <label for="date"> : تاريخ الولادة</label>
+
+        <span class="validity"></span>
+        <br> <br>
+
+        <select id="programme" name="البرنامج">
+            <option value="BAIT">BAIT</option>
+            <option value="BIT">BIT</option>
+            <option value="TIC">TIC</option>
+            <option value="BACT">BACT</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="programme">:البرنامج</label>
+
+
+        <br> <br>
+
+
+        <input id="phone" type="tel" name="رقم الموبايل" size="20" required placeholder="+963-993058019" />
+        <label for="phone"> : رقم الموبايل</label>
+        <br> <br>
+        </div>
+
+        <body onload="Captcha();">
+
+            <table class="tc" align="right">
+
+                <tr>
+                    <td style="text-align:right">
+                      :  يرجى ادخال رمز التحقق (كابتشا  )<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" required id="mainCaptcha" readonly />
+
+                        <input type="button" id="refresh" value="تحديث" onclick="Captcha();" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="txtInput" required />
+
+                        <input id="Button1" type="button" value="تحقق" required onclick="alert(ValidCaptcha());" />
+                    </td>
+                </tr>
+
+            </table>
+
+            <br><br><br><br><br><br /><br /><br /><br><br><br>
+            <div class="c2" align="right">
+                
+                <input id="B1" type="button" onClick="insertData()" value="اضافة">
+            </div>
+ <script language="javascript">
+    
+  
+                function insertData() {
+                    var name = document.getElementById("programme").value;
+                    var address = document.getElementById("student").value;
+                    var prog = document.getElementById("user").value;
+                    document.getElementById("insertionPoint").innerHTML += "<tr><td>" + name + "</td><td>" + address + "</td><td>" + prog + "</td></tr>";
+                  
+            
+                    document.getElementById("programme").value = "";
+                    document.getElementById("student").value = "";
+                    document.getElementById("user").value = "";
+                }
+            </script>
+
+            <hr /><hr />
+
+            <br><br><br>
+
+            <h1>جدول بأسماء الطلاب</h1>
+
+            <br><br>
+
+            <p class="labelish"> : البرنامج</p>
+            <select id="programme2" name="البرنامج" value="All">
+                <option value="All">All</option>
+                <option value="BAIT">BAIT</option>
+                <option value="BIT">BIT</option>
+                <option value="TIC">TIC</option>
+                <option value="BACT">BACT</option>
+            </select>
+            <br /><br />
+            <p class="labelish"> : الفرز حسب  </p>
+            <center>
+                <div id="Container" class="Options">
+
+                    <label for="prog-num"> <input id="prog-num" name="paymentType" type="radio" value="programme" />  البرنامج  </label>
+                    <label for="std-num"> <input id="std-num" name="paymentType" type="radio" value="name" /> اسم الطالب </label>
+
+                    <label for="user-id"> <input id="user-id" name="paymentType" type="radio" />رقم المستخدم</label>
+
+                </div>
+            </center>
+    </form>
+
+
+    <table id="mt" align="center" class="styled-table">
+        <thead>
+                <colgroup>
+                    <col span="2" class="c2">
+                    <col>
+                    <col class="c1">
+                </colgroup>
+                <thead>
+            <tr>
+                <th>تسلسل</th>
+                <th>البرنامج</th>
+                <th>اسم الطالب</th>
+                <th>اسم المستخدم</th>
+              
+            </tr>
+        </thead>
+        <tbody id="insertionPoint">
+            <tr>
+                <td>BIT</td>
+                <td>عزيز اليونس</td>
+                <td>Aziz_21286</td>
+                
+            </tr>
+            <tr class="active-row">
+                <td>BIT</td>
+                <td>وسيم البرادي </td>
+                <td>Wesem_57527</td>
+                
+            </tr>
+            <tr>
+                <td>TIC</td>
+                <td> محمود فياض</td>
+                <td>Mahmoud_193997</td>
+                
+            </tr>
+        </tbody>
+    </table>
+   
+    <script type="text/javascript">
+    function tableToJson(table) {
+        var data = [];
+        var headers = [];
+        for (var i=1; i<table.rows[0].cells.length; i++){
+            headers[i]= table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
+        }
+for (var i=1; i<table.rows.length; i++){
+    var tableRow= table.rows[i];
+    var rowData={};
+    for (var j=0; j< tableRow.cells.length; j++) {
+rowData[headers[j] ] = tableRow.cells[j].innerHTML;
+
+    }
+    data.push(rowData);
+}
+return data;
+    }
+    var myjson = JSON.stringify(tableToJson(document.getElementById("mt")));
+    console.log(myjson);
+    function addVall(){
+        document.getElementById('content').value= myjson
+    }
+    </script>
+    <textarea id="content" cols="80" rows="10"></textarea>
+    <br> <br>
+    <button id="jsonbtn" onclick="addVall()">Click to convert input to JSON</button>
+    <br>
+</body>
+</html>
+
+
